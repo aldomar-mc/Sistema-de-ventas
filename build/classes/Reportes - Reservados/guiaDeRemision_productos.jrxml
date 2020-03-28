@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="guiaDeRemision_productos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="84a805b8-9ec0-4f26-b667-9a9706b1905e">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idVenta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT d.`cant`, u.`abre`,c.`nomctlg`
+FROM catalogoproducto c, detventafacturar d, unidad u
+WHERE c.`codctlg`=d.`codctlg`
+AND c.`idUnidad`=u.`idUnidad`
+AND d.mostrar=true
+AND d.`idVenta`=$P{idVenta};]]>
+	</queryString>
+	<field name="cant" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="abre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="496" y="0" width="39" height="17" uuid="4c3f2107-26bb-49b3-805d-85b7cce06aca"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="369" height="17" uuid="c923aed5-58f5-477a-bf2e-611e223bb602"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="0" width="36" height="17" uuid="3d1fd637-cfa1-421c-b988-5d3803ebec46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="439" y="0" width="56" height="17" uuid="8387351e-e837-4c7a-9766-d4322b967bda"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{abre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

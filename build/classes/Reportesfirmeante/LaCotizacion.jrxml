@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaCotizacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="df9d85a8-d8c1-4a46-b2d9-4683cbe2c80f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Monto" class="java.lang.String"/>
+	<parameter name="Id" class="java.lang.String"/>
+	<parameter name="igv" class="java.lang.String"/>
+	<parameter name="subtotal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from DtsCotizacion where id=$P{Id};]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_Caducidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cant" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Precio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="101" y="0" width="359" height="20" uuid="4ac5f639-33d3-41a5-89a0-24bf59399571"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[INVERSIONES GENERALES RAMON CASTILLA S.A.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="105" splitType="Stretch">
+			<rectangle>
+				<reportElement x="26" y="90" width="297" height="15" uuid="308880de-ba4a-4a10-9e17-d7cef34c247b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="295" y="90" width="71" height="15" uuid="2fa6364a-9ef9-4c77-bdff-a8feed912fcb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="366" y="90" width="71" height="15" uuid="d76e0325-1188-4193-8efa-b6190df33e9b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="437" y="90" width="71" height="15" uuid="74249ea6-7399-4532-9da4-37d065c88f72"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="109" y="68" width="100" height="15" uuid="10f4999e-b2b3-4f90-9405-7466c678ab6e"/>
+				<textElement>
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="69" width="100" height="15" uuid="c5883e26-6629-4630-aa9d-46667bdc43f6"/>
+				<textElement>
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="89" width="267" height="15" uuid="d633ad2d-b990-4065-8a64-66929cae3c27"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="90" width="51" height="15" uuid="16c81fc6-afd8-40f4-b0e8-a2582ce772a5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="90" width="61" height="15" uuid="4338b3c9-6a25-44f5-918e-9123d9178b12"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="89" width="52" height="15" uuid="66215db1-b6af-41af-aebd-7c7dd9fa7249"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="68" width="104" height="15" uuid="1f365dfb-76b3-427f-8cc3-79e09fd6161d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha cotización :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="10" width="91" height="15" uuid="258e6413-ef50-493a-a137-57b9d9a4029e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cliente :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="69" width="77" height="15" uuid="62ddd8dc-7a0e-47db-845f-c0107c319d20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="49" width="77" height="15" uuid="8227ee17-be5d-4c67-b4c1-6ac46b0a0846"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Valido por :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="48" width="84" height="15" uuid="9f8e156c-a00d-4a01-9317-de7460d6fdcc"/>
+				<textElement>
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="48" width="104" height="15" uuid="67bbf8be-d133-4f09-8a1b-ccf2eb3edc5d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cotización N° :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="108" y="10" width="393" height="15" uuid="abce3162-f32b-4e86-a161-e19e714a3678"/>
+				<textElement>
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="3" y="90" width="23" height="15" uuid="aa918108-1d56-4f16-8066-73e7eef0bd42"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="90" width="22" height="15" uuid="e533a42c-5100-4482-bd03-f9570bf088b5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="404" y="49" width="100" height="15" uuid="b63d6769-5ada-4db5-8ce3-125c5429da5a"/>
+				<textFieldExpression><![CDATA[$F{F_Caducidad}+" Dias"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="29" width="91" height="15" uuid="e8a9872f-886e-4a58-8148-d60cc320461f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dirección :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="29" width="392" height="15" uuid="5f3944ec-cd24-4e25-8baf-71839367a20a"/>
+				<textFieldExpression><![CDATA[$F{Direccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="437" y="0" width="71" height="15" uuid="596e3c61-b09d-485b-900c-686043317f4f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="366" y="0" width="71" height="15" uuid="09b34650-40b7-4b3b-973a-292ac62e9a83"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="295" y="0" width="71" height="15" uuid="18d15bd0-3e5d-4bb2-8d10-a3e6449bf36a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="26" y="0" width="269" height="15" uuid="36272a7f-8dae-4a9c-875f-73aebcc9cb44"/>
+			</rectangle>
+			<textField>
+				<reportElement x="28" y="1" width="267" height="14" uuid="f5974391-2934-49d9-bcea-576293fe1bf5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="1" width="49" height="14" uuid="a849360b-8132-46f1-b32a-bcba24b9135c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="0" width="52" height="14" uuid="2e02ee65-27be-41bc-9bf5-3ffa10b89bf6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="0" width="52" height="14" uuid="270fdc7e-b9eb-4830-8003-a8b3dc04cc53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="3" y="0" width="23" height="15" uuid="26646da1-0b83-45ed-9805-83b176a41853"/>
+			</rectangle>
+			<textField>
+				<reportElement x="3" y="0" width="23" height="14" uuid="a42295c2-256e-4e8f-ba63-311e7fbe6445"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="405" y="5" width="39" height="19" uuid="15bf1244-8962-4105-816d-66e799671f94"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="4" width="55" height="20" uuid="73eb8a56-dc52-4ff0-a92f-6e62ac742d76"/>
+				<textFieldExpression><![CDATA["S/. "+$P{Monto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="196" y="24" width="188" height="19" uuid="745a8d8c-dd98-4825-b018-bba8345418e1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[EL PRECIO INCLUYE EL IGV]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repCompAnulados" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67920d80-be32-499e-bc42-09cdd668ca65">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fdesde" class="java.lang.String"/>
+	<parameter name="fhasta" class="java.lang.String"/>
+	<parameter name="fdesdeV" class="java.lang.String"/>
+	<parameter name="fhastaV" class="java.lang.String"/>
+	<parameter name="comprobante" class="java.lang.String"/>
+	<parameter name="filtro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cb.idcomprobantes ID_Anulado, concat(tc.tipcompr,':  ',tc.ser,'-',cb.nume) Numero_Anulado,date_format(a.Fecha,'%d/%m/%Y')
+F_Anulo,a.Hora H_Anulo,(select concat(tcb.tipcompr,':  ',tcb.ser,'-',cbt.nume) from compventa cvt inner join comprobantes cbt
+on cbt.idcomprobantes=cvt.idcomprobantes inner join tipocomprobante tcb on tcb.idtipocomprobante=cbt.idtipocomprobante
+where cvt.idventa=v.idventa) Nuevo_Comprobante,cl.nomclie Cliente,a.Motivo from venta v inner join cliente cl on
+cl.idcliente=v.idcliente inner join anulados a on a.idventa=v.idventa inner join comprobantes cb on cb.idcomprobantes=
+a.idcomprobantes inner join tipocomprobante tc on tc.idtipocomprobante=cb.idtipocomprobante where a.Fecha between
+$P{fdesde} and $P{fhasta} and tc.tipcompr like'$P!{comprobante}%' and
+(cb.nume like '%$P!{filtro}%');]]>
+	</queryString>
+	<field name="ID_Anulado" class="java.lang.Integer"/>
+	<field name="Numero_Anulado" class="java.lang.String"/>
+	<field name="F_Anulo" class="java.lang.String"/>
+	<field name="H_Anulo" class="java.sql.Time"/>
+	<field name="Nuevo_Comprobante" class="java.lang.String"/>
+	<field name="Cliente" class="java.lang.String"/>
+	<field name="Motivo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="320" y="18" width="164" height="20" uuid="fbd90fda-54a5-46b2-90d4-53206485c9b5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="15" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Comprobantes Anulados]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="697" y="7" width="80" height="14" uuid="df2bd6eb-df8f-4aef-bce1-56c5034e0a17"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="697" y="24" width="80" height="14" uuid="8075ff95-4f15-42fa-a884-e9216dbaf3f7"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="12" width="40" height="14" uuid="74fa6e77-bb2a-4c5b-b91a-6c3fa820e7aa"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="523" y="12" width="40" height="14" uuid="dec35919-39fb-4541-80bf-abc09f018dde"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta :]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="78" y="12" width="75" height="14" uuid="abfb0dfa-330c-436b-b383-cb690768ea0f"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fdesdeV}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="578" y="12" width="76" height="14" uuid="9d763e6c-5b58-4902-a4c1-763ac113d3e3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fhastaV}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="26" y="34" width="131" height="17" uuid="44b66192-a823-4fc3-8221-b1a242d13a6f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="49" y="37" width="80" height="14" uuid="d71e4eee-cc90-4bb7-a53e-a6c18dff7ea8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Num_Anulado]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="157" y="34" width="72" height="17" uuid="0d0dc6a3-eb3e-481c-83c4-97ad4c121141"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="167" y="37" width="55" height="14" uuid="fd82a07f-1acc-49c4-9f5a-ab52f9d5d5d9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F_Anulo]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="226" y="34" width="82" height="17" uuid="3d52b047-7135-4f94-8871-185389906886"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="235" y="37" width="59" height="14" uuid="024c8f88-11dd-4f1b-ac52-db1cfe36e2fb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[H_Anulo]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="308" y="34" width="139" height="17" uuid="0f4c99bf-3db5-4bdf-90d2-7d235c000efa"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="329" y="37" width="100" height="14" uuid="29cbb1b9-b267-40a1-bece-a8babe016bcf"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nuevo_Comprobante]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="447" y="34" width="222" height="17" uuid="58b397a0-1cd9-462b-ab8d-cdce60d63cac"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="530" y="37" width="59" height="14" uuid="220460fe-469e-4047-bdbe-e9e535b5765e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="664" y="34" width="133" height="17" uuid="d647091a-1edd-40c3-bad5-bffd4a271208"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="700" y="37" width="54" height="14" uuid="2ba2af0a-e995-4013-a9d5-3310d4a311c3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement x="154" y="0" width="72" height="17" uuid="d4858de8-e9e3-42b7-84ab-5231324e4bf2"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="163" y="2" width="60" height="14" uuid="44624417-aa83-4f06-ac74-3ae52b220a2f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_Anulo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="444" y="0" width="222" height="17" uuid="0120f2ba-6fbe-4148-8d90-b9831abf7788"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="308" y="0" width="139" height="17" uuid="a7f858b4-69a4-4e4c-b0f5-a7b1b1d0b1dd"/>
+			</rectangle>
+			<textField>
+				<reportElement x="320" y="2" width="124" height="14" uuid="4baa1cb7-7f7e-4b73-a131-c4b8b839f36a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nuevo_Comprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="2" width="210" height="14" uuid="e569453f-3be1-4507-ac86-1d58e63c0d7b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="26" y="0" width="131" height="17" uuid="87135a0c-a281-49d1-9af7-8f899dba85dc"/>
+			</rectangle>
+			<textField>
+				<reportElement x="30" y="2" width="122" height="14" uuid="99788e26-3396-4d8a-8b06-91dd3b3665de"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Numero_Anulado}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="226" y="0" width="82" height="17" uuid="f8ddb6d1-9bc7-4aae-a06b-460d6e3e4858"/>
+			</rectangle>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="235" y="2" width="59" height="14" uuid="e53d01cb-b9cc-411b-bbd7-1f3e3cb34b23"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{H_Anulo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="664" y="0" width="133" height="17" uuid="6944650b-a315-457d-bf91-4d96dca12a7f"/>
+			</rectangle>
+			<textField>
+				<reportElement x="670" y="2" width="124" height="14" uuid="09cece63-7645-41fc-aa6a-75d7ad54a5e2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Motivo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="371" y="12" width="43" height="14" uuid="d12037f0-845a-44d6-9c1b-ced5e86a1171"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

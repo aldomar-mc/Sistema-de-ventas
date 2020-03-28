@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="580" pageHeight="424" columnWidth="580" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3c926d80-33e8-4448-a287-1d215e17799c">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idventa" class="java.lang.String"/>
+	<parameter name="dia" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="direc" class="java.lang.String"/>
+	<parameter name="Monto" class="java.lang.String"/>
+	<parameter name="totalnum" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cp.codctlg ,concat(mo.nommod,' ',cp.nomctlg) as nomctlgo,df.cant ,df.prec ,(df.cant * df.prec) AS Importe,
+df.idVenta ,v.fecvta ,u.abre AS unidad
+from venta v,detventafacturar df ,catalogoproducto  cp, unidad  u,venta_producto vp,producto pr,serie ser, modelo mo
+where  v.idventa=vp.Venta_idventa and pr.idproducto=vp.producto_idproducto and v.idVenta = df.idVenta
+and df.codctlg = cp.codctlg and cp.idUnidad = u.idUnidad and pr.catalogoproducto_codctlg=cp.codctlg and cp.idmodelos=mo.idmodelos
+and pr.idproducto=ser.producto_idproducto
+and  v.idVenta=$P{idventa}
+group by cp.nomctlg, ser.seri;]]>
+	</queryString>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlgo" class="java.lang.String"/>
+	<field name="cant" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prec" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecvta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidad" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="374" y="8" width="20" height="15" uuid="697085f0-a9a9-46a9-bab8-1e9c9c217f93"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="8" width="30" height="15" uuid="9e588912-2d28-4505-8a31-780447bbfde7"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="521" y="8" width="10" height="15" uuid="59237f52-9a41-4472-8bb5-a740f50464e8"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="68" y="8" width="262" height="13" isPrintInFirstWholeBand="true" uuid="9725bce7-d9b6-43ef-920c-3a9ffe002ac1"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="29" width="262" height="13" uuid="7ddbcd20-19d4-42c4-b0c1-e574c242fed5"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="21" y="0" width="20" height="15" uuid="b9bcd55b-e5aa-423e-8c07-3c9cb4562403"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="328" height="15" uuid="a915c6e2-d508-4212-8dbb-d3a37fb2a7af"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlgo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="398" y="0" width="37" height="15" uuid="10296eee-1a68-4b37-adce-0ab5723502a0"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="50" height="15" uuid="5601544c-aa15-4924-aa5a-033fb259a0d9"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="65">
+			<textField>
+				<reportElement x="194" y="45" width="35" height="15" uuid="5032d290-62b9-4070-89ca-6fa83cd3992d"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="45" width="45" height="15" uuid="c65cf70c-c932-48a1-8ea5-89a084b9d19e"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="45" width="45" height="15" uuid="522d1132-bb9a-42d0-bbd2-def85d8e94f3"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="40" width="55" height="15" uuid="13c8884a-5598-496c-9c42-1ce1d3b8578a"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="16" width="390" height="13" uuid="1ebf5c58-cf92-4290-8e86-2931337839d5"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalnum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="50" y="38" width="69" height="17" forecolor="#FF0000" uuid="319d2309-262c-4bb6-bd49-6978bc9a1330"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EN DEUDA]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

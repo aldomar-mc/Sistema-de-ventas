@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="558" pageHeight="463" columnWidth="558" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="88497a64-98fd-4efb-b2db-bad528d15cbe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codv" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT nomclie, dir, numident, descriser as nomctlg,cost as prc, fecha ,cant as pp, (cost*cant)as tot FROM
+imprimircoprobanteservicio where idcomporbanteservicio=$P{codv};]]>
+	</queryString>
+	<field name="nomclie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dir" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numident" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pp" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tot" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="tot_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tot}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="54" y="24" width="358" height="12" forecolor="#404040" uuid="c0f959e3-7f96-4ae7-9404-30d425a8fc09"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomclie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="40" width="358" height="12" forecolor="#404040" uuid="3c5424e1-69dd-4869-80d0-4bbf8543984e"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="40" width="63" height="12" forecolor="#404040" uuid="4a81e3e7-55e0-4c20-90e7-93d01086fd11"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numident}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yy">
+				<reportElement x="165" y="8" width="20" height="12" forecolor="#404040" uuid="1848ca2e-d789-4ee4-b81a-364d05c20987"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM">
+				<reportElement x="82" y="8" width="61" height="12" forecolor="#404040" uuid="2b35d017-fc9c-4883-9d25-5e72d7da2f19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd">
+				<reportElement x="20" y="8" width="36" height="12" forecolor="#404040" uuid="563bc292-4064-40fd-a89c-a2c0034067ab"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="62" y="2" width="335" height="12" forecolor="#404040" uuid="460d204c-1abe-4b68-a30a-916c3866c6dc"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="2" width="35" height="12" forecolor="#404040" uuid="cbea6b31-b1f1-434b-886b-075aea166589"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="2" width="50" height="12" forecolor="#404040" uuid="f8a835ad-38c5-4ba7-a7b7-6064c44fe47b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="2" width="37" height="12" forecolor="#404040" uuid="31d66c01-83b8-4b02-b658-21f4e3ebeb94"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="143" splitType="Stretch">
+			<textField pattern="MMMMM">
+				<reportElement x="242" y="127" width="61" height="12" forecolor="#404040" uuid="695d7f66-0d86-45cf-af49-15664c1a3d18"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="yy">
+				<reportElement x="321" y="127" width="20" height="12" forecolor="#404040" uuid="57aaa2df-e3ee-440a-8434-2f323d563882"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd">
+				<reportElement x="172" y="127" width="36" height="12" forecolor="#404040" uuid="aac9c7e4-f0c1-47b9-ab92-3cb5b382a142"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="118" width="63" height="12" forecolor="#404040" uuid="d5058372-e882-47bd-825f-86020b065afa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tot_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

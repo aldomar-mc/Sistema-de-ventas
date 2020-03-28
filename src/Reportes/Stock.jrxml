@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ccbb144b-1693-40d1-846b-9c76c94ef612">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM imprimirvarios i;]]>
+	</queryString>
+	<field name="idimp" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="176" y="0" width="203" height="20" uuid="99a4874d-d81d-4861-b1b8-e0c00901fbfd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock de Productos en Almacen]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="27" y="5" width="496" height="1" uuid="c7ed355d-3510-45a0-b526-c2527ba2b8c9"/>
+			</line>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="459" y="9" width="96" height="16" uuid="cefc1e7a-f8b9-465c-876e-d0cd2bdf5e8d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="37" y="0" width="55" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="c3ada284-a299-4a97-9dc6-1586394bd32e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="418" y="0" width="80" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="83005243-caf7-483a-9376-00fa28aff4d3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="416" y="0" width="77" height="16" uuid="3925d69e-a286-465f-92a8-648b00fc31e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="92" y="0" width="327" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="5d0c9eaa-2f2b-4c1c-b4fd-1e715bd14f1d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="137" y="4" width="122" height="16" uuid="83ae8fec-9acb-4859-935a-74b661d101f3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="3" width="38" height="16" uuid="5db6c2c4-6449-4182-bad0-2c46d9e36ecd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="37" y="0" width="55" height="16" uuid="66d2894b-7387-4140-afd2-d90cd0c03116"/>
+			</rectangle>
+			<textField>
+				<reportElement x="37" y="0" width="55" height="16" uuid="a2011f7e-f773-493a-beff-104436f94d90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="75" y="0" width="444" height="16" uuid="91a23400-1702-492e-933c-6e3e21fc846a"/>
+				<subreportParameter name="codv">
+					<subreportParameterExpression><![CDATA[$F{codctlg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Stock_Productos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="213" y="0" width="80" height="20" uuid="262f168b-4c70-478f-99ed-a8e5a7fcb7c0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="293" y="0" width="40" height="20" uuid="f9267709-bcbf-488b-8557-389e8887632f"/>
+				<textFieldExpression><![CDATA["  " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="16" splitType="Stretch"/>
+	</summary>
+</jasperReport>

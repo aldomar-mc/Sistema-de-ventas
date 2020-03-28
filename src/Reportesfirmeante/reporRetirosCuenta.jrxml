@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporRetirosCuenta" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6838321-1572-4b07-81c9-42e6e86209f5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idsede" class="java.lang.String"/>
+	<parameter name="buscar" class="java.lang.String"/>
+	<parameter name="fdesde" class="java.lang.String"/>
+	<parameter name="fhasta" class="java.lang.String"/>
+	<parameter name="fhastav" class="java.lang.String"/>
+	<parameter name="fdesdev" class="java.lang.String"/>
+	<parameter name="cuenta" class="java.lang.String"/>
+	<parameter name="monto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="225" y="10" width="296" height="29" uuid="a17bc687-9794-4e6d-8441-f1ed02a231b0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="23" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE RETIROS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="52" width="35" height="14" uuid="e65059c6-d803-42a9-a277-91ee27be55be"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="610" y="52" width="47" height="14" uuid="6ef6a28b-30fa-4c3e-b276-1e9342f09a8a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="52" width="35" height="14" uuid="63915a1e-ecee-488d-bfe8-fb9969ff29e0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="75" width="772" height="1" uuid="34ff7a14-3628-4939-86a7-ff2638098853"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="725" y="10" width="55" height="15" uuid="c1e36d89-eb29-4d6e-bcc3-94604b5561b6"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="725" y="30" width="55" height="15" uuid="4abc02fc-d152-43f0-b69f-bc19066af9d7"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

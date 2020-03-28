@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5bcfbbc8-6340-4f6b-aefe-121947983772">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecIn" class="java.lang.String"/>
+	<parameter name="fecFi" class="java.lang.String"/>
+	<parameter name="codv" class="java.lang.String"/>
+	<parameter name="bsc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select  v.idVenta AS idventa,c.nomclie AS nomclie,v.fecvta AS fecvta,
+ v.moda AS moda,d.nom AS nom,v.montreal AS  total,u.nomusr AS nomusr,cpr.nume AS nume,
+ ti.tipcompr AS tipcompr,v.descuento,(v.montreal-v.descuento) as tot, v.referencia
+from venta v,cliente c,usuario u,datosusuarios d,venta_producto vp
+,compventa co,comprobantes cpr,tipocomprobante ti
+where v.idCliente=c.idCliente and v.Usuario_idusuario=u.idusuario
+and u.idusuario=d.Usuario_idusuario and v.idVenta=vp.Venta_idVenta
+and v.idVenta=co.idVenta and co.idComprobantes=cpr.idComprobantes
+and cpr.idTipoComprobante=ti.idTipoComprobante and ti.idsede=$P{codv} and v.fecvta between $P{fecIn} and $P{fecFi}
+group by v.idVenta;]]>
+	</queryString>
+	<field name="idventa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomclie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecvta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="moda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="nomusr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nume" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipcompr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descuento" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tot" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="referencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="tot_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{tot}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="313" y="5" width="169" height="20" uuid="365c4ab7-3548-4ade-8481-7db62378d59f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Ventas]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="683" y="25" width="118" height="12" uuid="ad2f6e26-994b-487f-b06c-d8856430501a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="15" width="100" height="0" uuid="6924b614-0a02-41fa-b0e8-3d96839ee461"/>
+				<textFieldExpression><![CDATA[$P{bsc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="28" uuid="3173d493-78c9-4dd5-903f-4c59309c9758"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="3" width="117" height="12" uuid="8dbc9fb6-c185-41cf-811a-fc4d40412b44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="16" width="117" height="12" uuid="d28d8417-d45b-432f-937b-30b4d8694c12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Hasta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="3" width="100" height="12" forecolor="#404040" uuid="de81ae5a-c546-4d27-a595-5a511192875b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="16" width="100" height="12" forecolor="#404040" uuid="04a3a44f-25c6-4bb8-91a7-8c74b1293860"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecFi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="21" height="15" uuid="4f4d1ea6-862e-4f61-9bc5-1b63f715870b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="131" y="0" width="212" height="15" uuid="b0a35780-818d-4dce-a7fb-f8e29158e559"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="444" y="0" width="60" height="15" uuid="c281771e-8c3a-445b-8e4a-9f4c0efce9d5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="504" y="0" width="60" height="15" uuid="48b6ecd9-d52e-42a6-8b87-8fff9ffb6736"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="562" y="0" width="60" height="15" uuid="feb2092e-1c6f-47e0-81fe-fc5841de7595"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="742" y="0" width="60" height="15" uuid="16eb59dc-7421-4c85-b528-a5bc465e4ff3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="21" y="0" width="60" height="15" uuid="19515c22-5aa7-4a4d-a3a6-81e182548e56"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="81" y="0" width="50" height="15" uuid="0b88a3a0-743f-4aa6-ab40-11e36f41541a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="622" y="0" width="60" height="15" uuid="494219c8-bdac-4d1b-8f61-af180dea4293"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="682" y="0" width="60" height="15" uuid="573db6e9-1496-4fc1-aede-b77e95ac3cb8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="343" y="0" width="101" height="15" uuid="d129df6f-0a2f-49e8-8172-46bec75acb11"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="131" y="2" width="210" height="12" uuid="bb95a971-9dfe-4d68-a3e4-2e1e28d9ac6d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="2" width="60" height="12" uuid="08fee678-1847-4cd3-83c4-4605d89c8aa1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="504" y="2" width="60" height="12" uuid="933a7031-f876-4610-98ac-761b8d9176d0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condición]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="563" y="2" width="60" height="12" uuid="56a8e0af-9f69-4bc7-a4aa-54d72072bc0e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="2" width="20" height="12" uuid="5c732643-c1ba-4061-b8f3-ed772e46ccb5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="742" y="2" width="60" height="12" uuid="d77cf93a-2325-4273-a581-e4a0fc60c8f1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Importe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="2" width="60" height="12" uuid="52476357-857a-4eeb-8dee-25aa2d2e9457"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="2" width="60" height="12" uuid="3412e160-616a-4c9c-9bcc-4c735d4db686"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descuento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="2" width="60" height="12" uuid="978bd1e0-2cc0-4982-8825-b765712c9908"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="81" y="2" width="50" height="12" uuid="83893bd6-4029-4830-acdb-3b0bdb8edb61"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° Comp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="2" width="60" height="12" uuid="a3ad8244-d5c2-4da6-9f3c-bc31aeac1ee5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="444" y="0" width="60" height="15" uuid="cb59d8c7-c470-4670-b248-a03fb0db7553"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="1" y="0" width="20" height="15" uuid="b6881c98-3a12-49a0-9f3a-8e70fc865dc8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="131" y="0" width="212" height="15" uuid="96a4c11f-bc6a-4ce4-944d-6e37cc8aaf28"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="504" y="0" width="60" height="15" uuid="e0ca0178-5090-4298-bef4-dda615440540"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="562" y="0" width="60" height="15" uuid="e7a19217-3bce-4ab7-a77b-a894d2253f4f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="622" y="0" width="60" height="15" uuid="755811b4-8a5c-4ec0-9cb2-3304420d0aa0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="81" y="0" width="50" height="15" uuid="b0dc46e4-7ba9-4f01-9833-12161446a672"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="21" y="0" width="60" height="15" uuid="8c4d2afe-34b7-45c3-bd39-57a6b930afea"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="682" y="0" width="60" height="15" uuid="a35f2d1f-b21b-4d7a-8385-6184a1ae1047"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="742" y="0" width="60" height="15" uuid="151ec698-30f7-47f4-a05f-b6764d1340a8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="343" y="0" width="101" height="15" uuid="e7667d6c-3e5f-4461-94ef-f10c36f1dc52"/>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="2" width="20" height="12" forecolor="#404040" uuid="fa498ec8-7853-446b-95e5-fab5318faa27"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="2" width="210" height="12" forecolor="#404040" uuid="17d49486-695b-40f2-be8f-bdb080be2884"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomclie}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="444" y="2" width="60" height="12" forecolor="#404040" uuid="4f7d01ed-e641-4e2a-b5e1-4e2252d0d517"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecvta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="504" y="2" width="60" height="12" forecolor="#404040" uuid="5fafb855-b8d4-4c44-ae82-f496a92fa0df"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{moda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="563" y="2" width="60" height="12" forecolor="#404040" uuid="54c50e76-22a1-4380-a9f0-313e4eb81aa1"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="622" y="2" width="60" height="12" uuid="3d5f94c2-5f3e-4171-995a-77a7b715cd43"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="2" width="60" height="12" uuid="b05ac38d-c40d-4b82-89e2-1398f684e734"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="742" y="2" width="60" height="12" uuid="98f7358e-76ff-47b1-b805-7176702ae86a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tot}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="2" width="60" height="12" uuid="d6d59889-ec46-4b65-8b4f-337224f82fc6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipcompr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="2" width="50" height="12" uuid="f54903df-37fb-4112-ae89-0753fd896dc8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nume}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="2" width="81" height="12" uuid="9e4781d6-a9fb-441b-9e96-1bf86ea313dc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="681" y="0" width="80" height="12" uuid="e53c9664-30e9-470b-8d47-ea4b16956640"/>
+				<textElement textAlignment="Right">
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="761" y="0" width="40" height="12" uuid="14a3b367-cbca-467d-b27d-5dff3decf3c3"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="622" y="0" width="87" height="17" uuid="b74ed695-af71-4410-94b7-ebbe5045cfc2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="630" y="3" width="66" height="12" uuid="c93f862e-9d4d-4f2d-93e1-6382d6c1e43a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL S/.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="707" y="0" width="95" height="17" uuid="5f61c0b6-5dec-4b18-973d-7709e4fe798b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="712" y="3" width="85" height="12" uuid="0c145aba-6ebf-4daa-94b8-5d0afa2728e9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tot_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

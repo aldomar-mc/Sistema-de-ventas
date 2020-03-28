@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repoDetalleDefectuoso" language="groovy" pageWidth="773" pageHeight="555" orientation="Landscape" columnWidth="773" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="42ffb457-7280-4685-bd48-db9356127777">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idSede" class="java.lang.String"/>
+	<parameter name="idretiro" class="java.lang.String"/>
+	<parameter name="bsc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT  (SELECT p.`idProducto` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1), (SELECT p.`codbrr` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1), concat(mo.`nommod`,' ',c.`nomctlg`)AS `nomctlg`, m.`nommrc`, u.`nomuni`, (SELECT count(p.`Catalogoproducto_codctlg`) FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1)  FROM catalogoproducto c, marca m, modelo mo, unidad u,usuario us,prodDefectuosos pd,RetiroDefectuosos rd WHERE (c.`idMarca` = m.`idMarca` AND c.`idModelos` = mo.`idModelos` AND c.`idUnidad` = u.`idUnidad` and us.idusuario=rd.idusuario and rd.idRetiroDefectuosos=pd.idRetiroDefectuosos and pd.idproducto= (SELECT p.`idproducto` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1) and (SELECT p.`idSede` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1)=$P{idSede}) and(concat(`mo`.`nommod`,' ',`c`.`nomctlg`) like '%$P!{bsc}%' or (SELECT p.`codbrr` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1) like '%$P!{bsc}%' or `m`.`nommrc` like '%$P!{bsc}%' or nomctlg like '%$P!{bsc}%') AND c.`codctlg` in (SELECT p.`Catalogoproducto_codctlg` FROM producto p WHERE p.`estdo`='Defectuoso' ) and rd.idRetiroDefectuosos=$P{idretiro};]]>
+	</queryString>
+	<field name="(SELECT p.`idProducto` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`=&apos;Defectuoso&apos; limit 1)" class="java.lang.Integer"/>
+	<field name="(SELECT p.`codbrr` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`=&apos;Defectuoso&apos; limit 1)" class="java.lang.String"/>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nommrc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomuni" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="(SELECT count(p.`Catalogoproducto_codctlg`) FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`=&apos;Defectuoso&apos; limit 1)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="36" y="0" width="90" height="18" uuid="43d9bac3-d4cf-4c5e-afcc-551889ca2b4c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="50" y="2" width="59" height="15" uuid="51000573-4292-46dc-b30c-67268f394bee"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C_Barra]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="126" y="0" width="363" height="18" uuid="c5d0d2df-b142-4927-b7f3-f714628f7ab8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="240" y="2" width="74" height="15" uuid="591be62d-65ff-4590-85e6-a502586d6e93"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="489" y="0" width="100" height="18" uuid="61702cb0-9d7a-4c3f-8d34-89573583e38d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="510" y="2" width="54" height="15" uuid="4e694920-9564-4380-93a5-07a517161edc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="589" y="0" width="95" height="18" uuid="b04cc27e-6c48-4df6-86bf-c20b4a41d114"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="612" y="2" width="52" height="15" uuid="81293df4-b816-4cfc-9ee0-7ff9cbf712bf"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="684" y="0" width="90" height="18" uuid="2dfecc70-9fcc-4eac-beec-b07a1bb389bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="702" y="2" width="59" height="15" uuid="280a0593-d745-4ef9-b645-f07551914dc4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="36" y="0" width="90" height="18" uuid="38cc3789-46d4-4c77-9c14-d1944598ee6e"/>
+			</rectangle>
+			<textField>
+				<reportElement x="47" y="2" width="74" height="15" uuid="579e8645-34d2-420a-b83a-6250ca267ac4"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{(SELECT p.`codbrr` FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1)}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="126" y="0" width="363" height="18" uuid="e542bdb5-4448-4e4f-a8a2-b538c0a05266"/>
+			</rectangle>
+			<textField>
+				<reportElement x="142" y="2" width="338" height="15" uuid="0c08887a-f17e-49ac-9e05-e6f8eed83829"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="489" y="0" width="100" height="18" uuid="65e66f2b-0c09-40d7-8070-71f401533e7d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="491" y="2" width="100" height="15" uuid="97d08b6e-b60c-4e67-9cee-6da45423f109"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nommrc}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="589" y="0" width="95" height="18" uuid="47e4c13c-04eb-44bd-8284-03465b4329e7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="605" y="2" width="65" height="15" uuid="82486b0a-b26d-46d3-961b-b0955656e7ae"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomuni}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="684" y="0" width="90" height="18" uuid="8ab18c57-acb2-4204-9dbf-08b2623fe75a"/>
+			</rectangle>
+			<textField>
+				<reportElement x="720" y="2" width="28" height="15" uuid="2c9a3efb-97b9-41b2-91a5-b40a21b13f3e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{(SELECT count(p.`Catalogoproducto_codctlg`) FROM producto p WHERE p.`Catalogoproducto_codctlg` = c.`codctlg` AND p.`estdo`='Defectuoso' limit 1)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

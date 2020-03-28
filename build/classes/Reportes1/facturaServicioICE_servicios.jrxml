@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facturaServicioInfotel_servicios" language="groovy" pageWidth="533" pageHeight="802" columnWidth="533" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="fc107dd8-9feb-4bcb-9d8c-23b14ee5aef8">
+	<property name="ireport.zoom" value="1.366026910730141"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idComprobanteServicio" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT s.`cant` as cantidad,'und' as unidad, s1.`DescriSer` as descripcion, CAST(s.`cost` AS DECIMAL(9,2)) precioUnitario, (s.`cost`* s.`cant`) as total
+FROM serviciodetalle s, servicio s1
+WHERE s1.`idServicio`=s.`idServicio` AND s.`idComporbanteServicio`=$P{idComprobanteServicio};]]>
+	</queryString>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="unidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="precioUnitario" class="java.math.BigDecimal"/>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="18" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="28" y="0" width="28" height="14" uuid="de5dac7f-23fd-440a-bc10-d9f6ebb50c61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="352" height="14" uuid="9862fbac-ee33-465a-8cec-4efcb70f0363"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="460" y="0" width="71" height="14" uuid="ea6c60b1-5d6b-4134-b1da-e86cf202f0c6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="412" y="0" width="45" height="14" uuid="12e08999-e079-4b77-b348-a1f578cacc76"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="25" height="14" uuid="5157ae70-07f9-42f7-95d7-6919c96267b7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

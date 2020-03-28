@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RptDepositosalaCuenta" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0320248a-ce7d-4e59-9f87-0a2219a56279">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idsede" class="java.lang.String"/>
+	<parameter name="busc" class="java.lang.String"/>
+	<parameter name="f_des" class="java.lang.String"/>
+	<parameter name="f_has" class="java.lang.String"/>
+	<parameter name="f_des_v" class="java.lang.String"/>
+	<parameter name="f_has_v" class="java.lang.String"/>
+	<parameter name="cta" class="java.lang.String"/>
+	<parameter name="monto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select d.descdepo,date_format(b.fedepo,'%d/%m/%Y') Fecha_Deposito,b.montbchr,b.nrobaucher,respodeposito Responsable,
+c.numcta Cuenta,u.nomusr Usuario
+from cuentaempresa c inner join depocuentaempresa d on c.idctaemprea=d.idctaemprea inner join baucherdeposito b
+on b.iddepocuentaempresa=d.iddepocuentaempresa inner join sede s on d.idsede=s.idsede inner join usuario u on
+d.idusuario=u.idusuario
+where (b.fedepo between '$P!{f_des}' and  '$P!{f_has}') and s.idSede=$P!{idsede} and (d.descdepo like'%$P!{busc}%' or b.nrobaucher like'%$P!{busc}%') and c.numcta=$P!{cta};]]>
+	</queryString>
+	<field name="descdepo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha_Deposito" class="java.lang.String"/>
+	<field name="montbchr" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrobaucher" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Responsable" class="java.lang.String"/>
+	<field name="Cuenta" class="java.lang.String"/>
+	<field name="Usuario" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="175" y="15" width="401" height="29" uuid="cc3c00db-aac9-47c1-bd39-245c9b9e8496"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="23" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE DEPOSITOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="18" width="35" height="14" uuid="0da0ae3b-9af3-4704-9410-4fa97a81feb0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="18" width="35" height="14" uuid="0c5bcf27-a764-40af-95f1-f3229bb933c3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="18" width="100" height="15" uuid="77d5490b-5d9b-48a6-921f-066402ceafc6"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{f_des_v}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="18" width="85" height="15" uuid="ee54dabc-c18a-47c2-af3e-ea7ff5c77525"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{f_has_v}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="19" y="42" width="772" height="1" uuid="676b9a82-9787-4f1e-b630-bf3cd849d9ef"/>
+			</line>
+			<staticText>
+				<reportElement x="620" y="16" width="47" height="14" uuid="befd0bc1-bdac-4082-836e-eb1d1159c142"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuenta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="688" y="16" width="100" height="15" uuid="9c6a5005-b05d-4800-b257-23739162d9e3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cta}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="17" y="67" width="375" height="18" uuid="a7dd6113-f042-4ff4-9019-c0ddc6cb7507"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="30" y="69" width="86" height="15" uuid="2d245528-cc1b-4215-b495-04d6b3d3b982"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Depositos]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="390" y="67" width="65" height="18" uuid="40d14a61-e70c-49aa-9f1d-954b14221d77"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="394" y="69" width="58" height="15" uuid="b1329721-b1a3-400c-969c-ff43f722533b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N.Baucher]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="455" y="67" width="55" height="18" uuid="3f497895-2d3b-4180-992a-4edb98cfbd57"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="462" y="69" width="40" height="15" uuid="604185e7-cf88-4bd2-af9b-e6bdb530b84f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="508" y="67" width="64" height="18" uuid="3781bc4d-e402-41a6-bc5d-df7b28662ac3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="515" y="69" width="50" height="15" uuid="da1cbe7f-1f7a-408e-a90f-72b35182deba"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="572" y="67" width="122" height="18" uuid="ef7ef00b-50dc-4ae7-940d-ba8d43fda535"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="580" y="69" width="100" height="15" uuid="17765129-b2fd-4bb7-a24b-6ed39a2b568c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="694" y="67" width="95" height="18" uuid="e2068f4a-5dff-44dc-a0eb-b8595f45ee1e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="700" y="69" width="60" height="15" uuid="4745d2fb-75cc-4e14-a77e-a1cdc55a3fe0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="455" y="0" width="55" height="18" uuid="c6cfe8f9-5565-4d2f-8f8d-c0791c2043de"/>
+			</rectangle>
+			<textField>
+				<reportElement x="460" y="3" width="50" height="14" uuid="2e652b5d-4a60-476c-96b1-9b1f7b340943"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montbchr}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="17" y="0" width="375" height="18" uuid="81988a9e-8d63-41ff-a7bd-6661777155ba"/>
+			</rectangle>
+			<textField>
+				<reportElement x="20" y="3" width="365" height="14" uuid="a67dec83-1303-481f-83b7-b75bd4b0eb03"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descdepo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="390" y="0" width="65" height="18" uuid="13e2543a-9b58-460b-a63d-bcb7ac173963"/>
+			</rectangle>
+			<textField>
+				<reportElement x="395" y="3" width="43" height="14" uuid="5d29dc9b-bc11-4615-9faf-34605d9d31ce"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrobaucher}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="508" y="0" width="64" height="18" uuid="288941c8-1f1b-4d2e-94d5-6cf18e2e3704"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="519" y="3" width="50" height="14" uuid="db01c211-f300-46ef-81f6-d01cea5635e1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Fecha_Deposito}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="572" y="0" width="122" height="18" uuid="edb0b0e7-9c6c-4982-a3ec-51b009dce9ba"/>
+			</rectangle>
+			<textField>
+				<reportElement x="595" y="3" width="95" height="14" uuid="4dc93e4c-c62c-4f9b-81b0-e9878e2efb05"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Responsable}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="694" y="0" width="95" height="18" uuid="22856717-c777-46c1-9206-7b64daf94a5f"/>
+			</rectangle>
+			<textField>
+				<reportElement x="710" y="3" width="62" height="14" uuid="9fbfb752-c6f3-4798-bab7-7075070e1785"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="620" y="12" width="47" height="14" uuid="0adb89d3-6ce8-4e75-b9c3-65ff83667899"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="689" y="11" width="90" height="15" uuid="0e09e40b-9e10-42a0-9c05-069e69d200d0"/>
+				<textFieldExpression><![CDATA[$P{monto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

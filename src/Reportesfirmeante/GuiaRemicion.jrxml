@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="565" pageHeight="452" columnWidth="555" leftMargin="10" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3007ae7d-8800-4143-b595-f51c4e5fa760">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dia" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="identi" class="java.lang.String"/>
+	<parameter name="guia" class="java.lang.String"/>
+	<parameter name="monletras" class="java.lang.String"/>
+	<parameter name="vlrvta" class="java.lang.String"/>
+	<parameter name="igv" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="idventa" class="java.lang.String"/>
+	<parameter name="dir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cp.codctlg,cp.nomctlg,sum(df.cant) cant,df.prec,(sum(df.cant)*df.prec) as Importe,v.fecvta,u.abre AS unidad
+from detventafacturar df,catalogoproducto cp,venta v,unidad u
+where v.idVenta=df.idVenta and cp.codctlg=df.codctlg and u.idUnidad=cp.idUnidad and
+v.idVenta=$P{idventa} group by cp.nomctlg;]]>
+	</queryString>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cant" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prec" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecvta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidad" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="113" splitType="Stretch">
+			<textField>
+				<reportElement x="388" y="21" width="41" height="0" uuid="f80bbfae-d957-4ae9-a0f0-2bd8d38442f5"/>
+				<textFieldExpression><![CDATA[$P{idventa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="18" width="23" height="13" uuid="7162098f-c34b-41b1-9ff2-2e6f56f02f23"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="18" width="50" height="13" uuid="f97fb7cf-c304-42f2-8622-48b6cac4705c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="18" width="25" height="13" uuid="e230243f-814a-495b-8dab-398a7908fd07"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="32" width="70" height="15" uuid="fc955952-6ae4-4ae2-b8b1-0050bc660863"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{identi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="51" width="60" height="15" uuid="7de5eb28-a8d0-4807-a97d-5e1437d4285b"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{guia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="36" width="305" height="13" uuid="12189fd5-c393-483a-8737-4a47dbe049e4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="51" width="286" height="13" uuid="03fcbed7-3e44-4a42-aba1-29751fb97436"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dir}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="13" height="12" uuid="379209e3-e89a-471f-89e0-946c0ba49db9"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="15" y="0" width="10" height="12" uuid="1c3a5ae8-76a9-4d56-aed6-3be0c6e0e249"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="0" width="303" height="12" uuid="cbcfe516-17a6-44a9-a560-6332a30b2bd4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="30" height="12" uuid="18cff273-dcec-4d3a-b3d0-663d0be598e5"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="30" height="12" uuid="f8a96e89-0556-4a07-9318-37ae53a1cde2"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="130" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="89" width="25" height="13" uuid="e9c617e4-66da-4836-aeae-3e79e8cd11b6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="89" width="50" height="13" uuid="9eacb3b5-82a3-4e91-a370-3781954d71d3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="89" width="40" height="13" uuid="e73dad59-eb15-4f29-bef7-2b3e1849cf4d"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="100" width="35" height="13" uuid="d03f2c2c-eba2-4ed8-8e0a-b6283600ce3c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vlrvta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="381" y="100" width="35" height="13" uuid="c1838299-5829-4e4c-b88d-482cc94cda19"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{igv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="100" width="40" height="13" uuid="08c3654b-5110-477b-b068-3f8d9857c0d1"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="37" y="59" width="341" height="15" uuid="bf727db9-fca4-402d-8cec-99396c868afd"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{monletras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

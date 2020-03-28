@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CabeceraVentas" pageWidth="842" pageHeight="620" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8ebc209-4b17-4da7-b7cc-01843be1651d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fdes" class="java.lang.String"/>
+	<parameter name="fhas" class="java.lang.String"/>
+	<parameter name="bus" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\2015\\J&MSystem\\Comercial Ramon Castilla\\Mejorar el proyecto\\SystemComercial\\SystemComercial\\src\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fdevis" class="java.lang.String"/>
+	<parameter name="fhavis" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select idTipocomprobante,tipcompr from tipocomprobante where idTipocomprobante in (select distinct tipo from LaVista1 where (tipo like'$P!{bus}%') and (Fecha between '$P!{fdes}' and  '$P!{fhas}') order by comprobante desc);]]>
+	</queryString>
+	<field name="idTipocomprobante" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipcompr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="280" y="10" width="300" height="22" uuid="8098b80b-4d35-418c-ace1-4a1fd314fae6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de Ventas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="46" width="48" height="15" uuid="bdd35937-901e-444d-ab02-0ae4614a102b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="46" width="32" height="20" uuid="76c8e118-8aa2-4ad9-986a-477bd4046bbb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="69" y="3" width="96" height="0" uuid="6f5a7b68-fbcc-4e5f-9c60-6dd9fa9cba8b"/>
+				<textFieldExpression><![CDATA[$P{fdes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="359" y="3" width="75" height="0" uuid="4a795493-daba-457d-8979-4503877e3b72"/>
+				<textFieldExpression><![CDATA[$P{fhas}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="55" y="70" width="690" height="1" uuid="06dcbaad-199a-4bfa-819d-89b5f098e9ee"/>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="680" y="10" width="70" height="15" uuid="2ceb0287-6964-4a50-816e-522554765b42"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="680" y="32" width="70" height="15" uuid="20a5edbb-1893-4a50-967a-29505c6a6af2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="46" width="90" height="15" uuid="a3287cdc-69b1-4fcb-b323-fc10d7d4031b"/>
+				<textFieldExpression><![CDATA[$P{fdevis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="46" width="100" height="15" uuid="ea85f317-84a5-4f9a-8a49-1111df9c190b"/>
+				<textFieldExpression><![CDATA[$P{fhavis}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="18"/>
+	</columnHeader>
+	<detail>
+		<band height="119" splitType="Stretch">
+			<textField>
+				<reportElement x="55" y="0" width="224" height="20" uuid="ed640610-526c-493c-a775-1f1440e0fb89"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipcompr}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="48" y="21" width="751" height="98" uuid="7c6c1225-fec6-44b6-9a99-78bfda311f92"/>
+				<subreportParameter name="fde">
+					<subreportParameterExpression><![CDATA[$P{fdes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fha">
+					<subreportParameterExpression><![CDATA[$P{fhas}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="bsc">
+					<subreportParameterExpression><![CDATA[$P{bus}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tpcom">
+					<subreportParameterExpression><![CDATA[$F{idTipocomprobante}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DetalleVentas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="381" y="21" width="80" height="20" uuid="8e2ab8e2-c367-458c-91e8-46889f6f9c52"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="461" y="21" width="40" height="20" uuid="b294d393-2cc6-48c3-a8dd-c2bee7aedbef"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

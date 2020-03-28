@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportesdatos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9babd6f1-4145-4aa3-b2e0-dae545709d75">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Nombre" class="java.lang.String"/>
+	<parameter name="filtro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from banco where direc=$P{filtro}]]>
+	</queryString>
+	<field name="idBanco" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="259" y="23" width="100" height="20" uuid="fa59a247-6bf0-4176-b58a-1ec4b29962ff"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="16" y="23" width="206" height="20" uuid="c95f01f9-6e0e-4eb1-ab71-0a6be05fa4b6"/>
+				<textFieldExpression><![CDATA[$P{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="26" width="100" height="0" uuid="f5695543-039a-45b6-b595-1ba0b3b13b54"/>
+				<textFieldExpression><![CDATA[$P{filtro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="28" y="2" width="100" height="20" uuid="182ed6ab-2ae0-4302-a2a3-f770fbaef45c"/>
+				<text><![CDATA[idBanco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="198" y="2" width="100" height="20" uuid="d3333fb2-7d53-4055-91f7-323c5f8cf941"/>
+				<text><![CDATA[nombco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="2" width="100" height="20" uuid="2b024883-49a6-4eff-b4ae-de7cc69a457c"/>
+				<text><![CDATA[direc]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="28" y="0" width="100" height="20" uuid="bff817c7-c9c6-472c-abcc-fd7df98718a8"/>
+				<textFieldExpression><![CDATA[$F{idBanco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="221" height="20" uuid="fde009ce-0783-4022-9d41-ff7ab621c106"/>
+				<textFieldExpression><![CDATA[$F{nombco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="100" height="20" uuid="a06eac21-581e-4d72-8422-b48784650dd7"/>
+				<textFieldExpression><![CDATA[$F{direc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

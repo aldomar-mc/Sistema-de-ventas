@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rep_ProductosVendidos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d550a155-71f9-418e-9ca3-2286217c2566">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Buscar" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cp.codctlg,concat(md.nommod,' ',mrc.nommrc,' ',cp.nomctlg) Producto,ud.nomuni Unidad, count(p.idproducto) Cantidad
+from producto p inner join catalogoproducto cp on cp.codctlg=p.catalogoproducto_codctlg
+inner join modelo md on md.idmodelos=cp.idmodelos inner join marca mrc on mrc.idmarca=cp.idmarca
+inner join unidad ud on ud.idunidad=cp.idunidad where p.idproducto in (select producto_idproducto from venta_producto) and (md.nommod like'%$P!{Buscar}%' or  mrc.nommrc like'%$P!{Buscar}%' or cp.nomctlg like'%$P!{Buscar}%')group by cp.codctlg order by 4 desc;
+]]>
+	</queryString>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Producto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Unidad" class="java.lang.String"/>
+	<field name="Cantidad" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="123" y="16" width="277" height="25" uuid="5e3be040-fbc6-4d1c-b28d-d1de04cda369"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="19" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Productos Vendidos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="448" y="14" width="80" height="15" uuid="8f65f354-3bc6-4fda-a28c-e2b221ff025c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="448" y="30" width="80" height="15" uuid="a17ea6a2-d1b8-449b-bfd5-fcb5bd78c960"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="18" y="0" width="370" height="18" uuid="0e1bbefc-55fd-48e6-b4c9-b5da08e2842f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="160" y="2" width="50" height="14" uuid="b1a432d7-0ae1-4ba2-9aec-73ff62a86fcc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="388" y="0" width="85" height="18" uuid="35f718ed-6091-4508-b363-77e1c909239e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="408" y="2" width="43" height="14" uuid="df1048f9-43e9-40ea-b020-2b7714ff0818"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="473" y="0" width="65" height="18" uuid="5d42e46d-be13-4cca-8974-aded89738213"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="480" y="2" width="49" height="14" uuid="cfaefc00-3eee-4615-a7ce-3aad1af6f57b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="18" y="0" width="370" height="18" uuid="ced127c9-0c64-4b38-a758-1fdffaf92cda"/>
+			</rectangle>
+			<textField>
+				<reportElement x="30" y="2" width="355" height="15" uuid="ca2db959-bdd3-4b8d-b8fd-80a6d239ef28"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Producto}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="388" y="0" width="85" height="18" uuid="cf3df1af-da6d-4148-851e-65148dc37378"/>
+			</rectangle>
+			<textField>
+				<reportElement x="400" y="2" width="70" height="15" uuid="6447d2e3-5dda-42ac-bbdf-2288805eefae"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Unidad}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="473" y="0" width="65" height="18" uuid="069d9db1-459f-42a4-b123-33255def88a4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="485" y="2" width="41" height="15" uuid="b7cb5f04-792d-4474-a8a7-5c547e463dd6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="2" width="80" height="15" uuid="eccc18ba-0310-463e-9500-0dd9b3279f2a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="318" y="2" width="40" height="15" uuid="4e8bae7a-764b-46ba-a27a-87b6d970d5e1"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

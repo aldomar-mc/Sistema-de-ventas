@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RepLasVentas" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2d14919-e904-44ad-aa72-1b631e8d845c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fde" class="java.lang.String"/>
+	<parameter name="fha" class="java.lang.String"/>
+	<parameter name="fdevi" class="java.lang.String"/>
+	<parameter name="fhavi" class="java.lang.String"/>
+	<parameter name="bsc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from LaVista where (Comprobante like'%$P!{bsc}%' or cliente like'%$P!{bsc}%') and (Fecha between '$P!{fde}' and '$P!{fha}') order by comprobante desc;]]>
+	</queryString>
+	<field name="idVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Comprobante" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha" class="java.sql.Date"/>
+	<field name="Cliente" class="java.lang.String"/>
+	<field name="Modalidad" class="java.lang.String"/>
+	<field name="Usuario" class="java.lang.String"/>
+	<field name="MontoReal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Des" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MontDescuento" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="298" y="12" width="224" height="25" uuid="42601b11-943a-496a-a5d8-5e5317d1a0c3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="20" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE VENTAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="8" width="100" height="0" uuid="ea72c122-84e6-4a11-ad68-dfb4eb641d1d"/>
+				<textFieldExpression><![CDATA[$P{fde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="136" y="8" width="100" height="0" uuid="a7b25972-6893-4a55-9c9c-fbf3482b6c01"/>
+				<textFieldExpression><![CDATA[$P{fha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="198" y="37" width="80" height="0" uuid="ea7263a8-ed17-496b-9e19-855fd52d343b"/>
+				<textFieldExpression><![CDATA[$P{bsc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="3" width="40" height="15" uuid="9058a8c3-2438-4124-b0f9-be8a1d37dc47"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="3" width="40" height="15" uuid="71e29a28-47c3-449a-a688-893eb1e2f583"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="80" y="3" width="100" height="15" uuid="d7841e8d-9206-4d5b-84d7-b775906789c2"/>
+				<textFieldExpression><![CDATA[$P{fdevi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="510" y="3" width="100" height="15" uuid="282a8bfb-eb2c-4dec-87dd-27a14d169e57"/>
+				<textFieldExpression><![CDATA[$P{fhavi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="61" y="30" width="75" height="15" uuid="d658d2ab-9581-4c14-b096-bf25b06cbbb9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comprobante]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="18" y="3" width="22" height="15" uuid="eb213125-fe45-4795-abd7-8e2ade7838fa"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="8" width="100" height="20" uuid="4bd8fd31-9e19-4184-9259-42940622777b"/>
+				<textFieldExpression><![CDATA[$F{Comprobante}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

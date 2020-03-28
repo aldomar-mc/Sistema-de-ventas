@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="codv" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT d.iddeuda,d.nomclie,d.fono, d.fecvta,d.fecdeud, d.montdeu, d.pgoinici, d.tipcompr,d.nume,(montdeu+pgoinici)as tota, c.fecpgxdeu, c.montpag
+FROM deudores d,pagoxdeuda c  where d.iddeuda=c.iddeuda and d.iddeuda=$P{codv};]]>
+	</queryString>
+	<field name="idDeuda" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomclie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fono" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecvta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecdeud" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montdeu" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pgoinici" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipcompr" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nume" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tota" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecpgxdeu" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montpag" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="24" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="88" y="1" width="402" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="200" y="0" width="149" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<text><![CDATA[Ver Pagos  de Deuda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="106" splitType="Stretch">
+			<staticText>
+				<reportElement x="49" y="0" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="17" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="34" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha Venta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="51" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha de Pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="68" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Comprobante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="85" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Numero:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="0" width="193" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nomclie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="17" width="100" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="34" width="100" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecvta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="51" width="100" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecdeud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="68" width="100" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipcompr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="86" width="100" height="13"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nume}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="70" width="103" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<text><![CDATA[Deuda Total    S/.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="452" y="70" width="100" height="28"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tota}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="349" y="37" width="103" height="28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<text><![CDATA[Pago Actual    S/.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="452" y="37" width="100" height="28"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pgoinici}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="119" y="3" width="333" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="143" y="6" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[N° Cuota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="6" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Fecha de Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="6" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="10"/>
+				</textElement>
+				<text><![CDATA[Monto de Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="234" y="2" width="75" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{fecpgxdeu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="2" width="75" height="14"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{montpag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="2" width="75" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="12" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="10" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="16" splitType="Stretch"/>
+	</summary>
+</jasperReport>

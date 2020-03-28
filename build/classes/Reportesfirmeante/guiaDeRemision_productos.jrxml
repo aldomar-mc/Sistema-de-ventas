@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="guiaDeRemision_productos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="84a805b8-9ec0-4f26-b667-9a9706b1905e">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idVenta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select @itm:=@itm+1 Item,concat(md.nommod,' ',mr.nommrc,' ',cp.nomctlg) Descripcion,u.nomuni Unidad,dvf.cant Cantidad
+from (select @itm:=0) I,venta v inner join detventafacturar dvf on v.idventa=dvf.idventa inner join catalogoproducto cp
+on cp.codctlg=dvf.codctlg inner join unidad u on u.idunidad=cp.idunidad inner join modelocatalogo mc on
+mc.codctlg=cp.codctlg inner join modelo md on md.idmodelos=mc.idmodelos inner join marca mr on cp.idmarca=mr.idmarca
+where v.idventa=$P{idVenta};]]>
+	</queryString>
+	<field name="Item" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Unidad" class="java.lang.String"/>
+	<field name="Cantidad" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="35" y="0" width="25" height="17" uuid="4e476deb-ef62-4481-97b5-ea7b93f17554"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="0" width="340" height="17" uuid="64d13132-6004-45fb-9b63-44e71520da16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="50" height="17" uuid="c3cf9601-ddf1-48aa-8dc0-ef79d68b19bb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="20" height="17" uuid="3a3236ab-f098-43c7-b787-a9367b9e95c7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

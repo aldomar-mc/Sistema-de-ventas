@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporStockProductos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="561" leftMargin="20" rightMargin="14" topMargin="20" bottomMargin="20" uuid="1c993eb6-e729-43a1-8ca8-eb96f1742b08">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="buscar" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cp.codctlg ID,cp.codbarra,concat(md.nommod,' ',cp.nomctlg) producto,mrc.nommrc Marca,0 Stock
+from catalogoproducto cp inner join modelocatalogo mc on mc.codctlg=cp.codctlg inner join modelo md
+on md.idmodelos=mc.idmodelos inner join marca mrc on mrc.idmarca=cp.idmarca
+where cp.codctlg not in (select catalogoproducto_codctlg from producto) and (cp.nomctlg like'%$P!{buscar}%' or md.nommod
+like'%$P!{buscar}%' or cp.codbarra like'%$P!{buscar}%' or mrc.nommrc like'%$P!{buscar}%')
+union all select cp.codctlg ID,cp.codbarra,concat(md.nommod,' ',cp.nomctlg) producto,mrc.nommrc Marca,
+(select count(catalogoproducto_codctlg) from producto where catalogoproducto_codctlg=cp.codctlg
+and estdo='Disponible' and idSede='1') Stock
+from catalogoproducto cp inner join modelocatalogo mc on mc.codctlg=cp.codctlg inner join modelo md
+on md.idmodelos=mc.idmodelos inner join marca mrc on mrc.idmarca=cp.idmarca
+where cp.codctlg  in (select catalogoproducto_codctlg from producto) and (cp.nomctlg like'%$P!{buscar}%' or md.nommod
+like'%$P!{buscar}%' or cp.codbarra like'%$P!{buscar}%' or mrc.nommrc like'%$P!{buscar}%') order by 4 asc;]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<field name="codbarra" class="java.lang.String"/>
+	<field name="producto" class="java.lang.String"/>
+	<field name="Marca" class="java.lang.String"/>
+	<field name="Stock" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="170" y="10" width="256" height="18" uuid="0df09bce-2033-49c6-9983-1e1447e883cc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DEL STOCK DE PRODUCTO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="462" y="2" width="75" height="15" uuid="429adfa5-939c-4a02-b67f-d91f92a06fb6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement x="462" y="17" width="75" height="15" uuid="dbc994a8-364e-45c4-b7be-dffd2c9d3cf3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="37" y="0" width="60" height="20" uuid="3b73e530-f36c-4c5e-89fb-417b7612e7e3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="43" y="3" width="50" height="15" uuid="3869b4b9-b3ad-42fe-ba82-eb1828b5589e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="474" y="0" width="63" height="20" uuid="4d6b15e4-da5f-4e9e-b564-a665b2256aa5"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="97" y="0" width="265" height="20" uuid="9b8fd303-66c0-49c9-93fd-88e829993186"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="210" y="3" width="70" height="15" uuid="ff20989a-8d03-445c-9453-82888b6d4995"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="362" y="0" width="112" height="20" uuid="39534b91-a10f-4d6e-a1f4-abed95a8a199"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="397" y="3" width="44" height="15" uuid="b563a97f-6a0e-44df-8254-f6abe430c290"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="3" width="48" height="15" uuid="2b9e5eb7-9aec-4b17-8e25-afb0fd025004"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="37" y="0" width="60" height="20" uuid="a53b8cb6-49f7-43ec-9a0c-36a67f171935"/>
+			</rectangle>
+			<textField>
+				<reportElement x="43" y="3" width="50" height="15" uuid="f6227c74-80eb-4ac9-bd3a-7ce5cf236d29"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codbarra}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="97" y="0" width="265" height="20" uuid="2088393f-bc06-4d6a-b9dd-734a06a54010"/>
+			</rectangle>
+			<textField>
+				<reportElement x="105" y="3" width="250" height="15" uuid="ef51e8a1-19f8-46fe-9081-507ef8546eaa"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="362" y="0" width="112" height="20" uuid="753a2550-7762-4933-88e8-0c0099cdd040"/>
+			</rectangle>
+			<textField>
+				<reportElement x="369" y="3" width="90" height="15" uuid="e851f214-8547-4d90-bb1e-12a132eecec1"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Marca}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="474" y="0" width="63" height="20" uuid="9c40a5e8-360b-402e-8904-cb80730c106b"/>
+			</rectangle>
+			<textField>
+				<reportElement x="489" y="3" width="48" height="15" uuid="623fd5e7-1cea-43d0-88cf-1df5989c08e1"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Stock}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="223" y="3" width="80" height="15" uuid="aafc9629-2a34-4951-aa99-4dcad7a8a320"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="303" y="3" width="40" height="15" uuid="8c43f117-5fd8-4bd0-a317-ee0ea2f28789"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

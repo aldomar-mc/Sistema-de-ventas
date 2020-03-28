@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="593" pageHeight="467" columnWidth="593" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3007ae7d-8800-4143-b595-f51c4e5fa760">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dia" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String"/>
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="identi" class="java.lang.String"/>
+	<parameter name="guia" class="java.lang.String"/>
+	<parameter name="monletras" class="java.lang.String"/>
+	<parameter name="vlrvta" class="java.lang.String"/>
+	<parameter name="igv" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="idventa" class="java.lang.String"/>
+	<parameter name="dir" class="java.lang.String"/>
+	<parameter name="condicion" class="java.lang.String"/>
+	<parameter name="vendedor" class="java.lang.String"/>
+	<parameter name="lmt1" class="java.lang.String"/>
+	<parameter name="lmt2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cp.codctlg,cp.nomctlg,sum(df.cant) cant,df.prec,round(sum(df.cant)*df.prec,2) as Importe,v.fecvta,u.abre AS unidad,(SELECT u.`nomusr` FROM usuario u
+WHERE u.`idusuario` = v.`Usuario_idusuario`) as usu,
+(SELECT c.`nomclie` FROM cliente c
+WHERE c.`idCliente` = v.`idCliente`) as clien, v.`moda`
+from detventafacturar df,catalogoproducto cp,venta v,unidad u
+where v.idVenta=df.idVenta and cp.codctlg=df.codctlg and u.idUnidad=cp.idUnidad and
+df.mostrar=true and
+v.idVenta=$P{idventa} group by cp.nomctlg limit $P!{lmt1},$P!{lmt2};]]>
+	</queryString>
+	<field name="codctlg" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomctlg" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cant" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="prec" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Importe" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecvta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidad" class="java.lang.String"/>
+	<field name="usu" class="java.lang.String"/>
+	<field name="clien" class="java.lang.String"/>
+	<field name="moda" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="121" splitType="Stretch">
+			<textField>
+				<reportElement x="388" y="21" width="41" height="0" uuid="f80bbfae-d957-4ae9-a0f0-2bd8d38442f5"/>
+				<textFieldExpression><![CDATA[$P{idventa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="63" width="50" height="0" uuid="42e03919-ddb2-4cd1-a75f-d0b621803748"/>
+				<textFieldExpression><![CDATA[$P{lmt1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="74" width="50" height="0" uuid="fa771075-ea2f-4878-9cf9-f727d6d53b70"/>
+				<textFieldExpression><![CDATA[$P{lmt2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<textField>
+				<reportElement x="93" y="34" width="101" height="15" uuid="fc955952-6ae4-4ae2-b8b1-0050bc660863"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{identi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="34" width="60" height="15" uuid="7de5eb28-a8d0-4807-a97d-5e1437d4285b"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{guia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="17" width="286" height="13" uuid="03fcbed7-3e44-4a42-aba1-29751fb97436"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="54" width="100" height="15" uuid="54defe60-450e-45e8-bf3a-7b4275538566"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="286" height="15" uuid="80e7d913-57fd-4ce2-97d1-1fcf1fdfb406"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="54" width="101" height="15" uuid="75c04c20-5b70-49ef-94f8-0ceca1d05f51"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{moda}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="221" y="34" width="94" height="14" uuid="9733ed71-7bd5-4f00-b691-3a427638da93"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="42" y="0" width="31" height="12" uuid="379209e3-e89a-471f-89e0-946c0ba49db9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cant}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="0" width="42" height="12" uuid="1c3a5ae8-76a9-4d56-aed6-3be0c6e0e249"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="0" width="340" height="12" uuid="cbcfe516-17a6-44a9-a560-6332a30b2bd4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomctlg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="0" width="51" height="12" uuid="18cff273-dcec-4d3a-b3d0-663d0be598e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="62" height="12" uuid="f8a96e89-0556-4a07-9318-37ae53a1cde2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="130" splitType="Stretch">
+			<textField>
+				<reportElement x="266" y="65" width="25" height="13" uuid="e9c617e4-66da-4836-aeae-3e79e8cd11b6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="65" width="50" height="13" uuid="9eacb3b5-82a3-4e91-a370-3781954d71d3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="65" width="40" height="13" uuid="e73dad59-eb15-4f29-bef7-2b3e1849cf4d"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="37" width="52" height="13" uuid="d03f2c2c-eba2-4ed8-8e0a-b6283600ce3c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vlrvta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="58" width="52" height="13" uuid="c1838299-5829-4e4c-b88d-482cc94cda19"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{igv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="78" width="52" height="13" uuid="08c3654b-5110-477b-b068-3f8d9857c0d1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="41" width="418" height="15" uuid="bf727db9-fca4-402d-8cec-99396c868afd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{monletras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

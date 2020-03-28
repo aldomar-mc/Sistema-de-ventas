@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kardex" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c14e7e6b-4066-4301-bce0-2b5c5ba202b7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT count(p.`Catalogoproducto_codctlg`) as cntd,p.`Catalogoproducto_codctlg` as codctlg,
+concat(mo.`nommod`,' ',c.`nomctlg`)as producto, m.`nommrc`
+FROM producto p, catalogoproducto c, marca m, modelo mo
+WHERE p.`estdo`='Disponible' AND p.`Catalogoproducto_codctlg` = c.`codctlg` AND c.`idModelos` = mo.`idModelos` AND c.`idMarca` = m.`idMarca`  GROUP BY p.`Catalogoproducto_codctlg`   order by 1 desc;]]>
+	</queryString>
+	<field name="cntd" class="java.lang.Long"/>
+	<field name="codctlg" class="java.lang.Integer"/>
+	<field name="producto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nommrc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="149" y="0" width="320" height="20" uuid="3dd5ae9d-e45c-493b-9e3d-4dc868b871dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[KARDEX DE PRODUCTOS EN ALMACEN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="409" y="0" width="144" height="16" uuid="bfdfe896-02ff-494c-88d4-a7218bd80e46"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="69" height="27" backcolor="#FFFFCC" uuid="c5e44a6f-bd28-4934-bd67-0ffd0f94c3e9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="69" y="0" width="281" height="27" backcolor="#FFFFCC" uuid="f721f4de-98f7-4d75-bd5d-fd7bbe0dfd4d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="350" y="0" width="87" height="27" backcolor="#FFFFCC" uuid="a07a1489-2ac3-4eda-94f3-5d072f72cdfd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="437" y="0" width="118" height="27" backcolor="#FFFFCC" uuid="748fc6d3-9590-4d0f-ac7e-c9ae874f5414"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="15" uuid="0cca5473-ec5b-4682-825b-5aa609151f66"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="0" width="86" height="15" uuid="2330bd57-09c7-4e73-9a1d-563ac8d56f03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="442" y="0" width="112" height="15" uuid="79b45983-0ecf-4a14-afc4-64f2e55d9f8c"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nommrc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="74" y="0" width="268" height="24" uuid="98f5bd89-8567-49ee-af08-83be6734678e"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="27" width="555" height="74" uuid="e30dcc71-2878-4cb4-bf05-a942606d8258"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{codctlg}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="stockfi">
+					<subreportParameterExpression><![CDATA[$F{cntd}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\2015\\J&MSystem\\Comercial Ramon Castilla\\Mejorar el proyecto\\SystemComercial\\SystemComercial\\src\\Reportes\\detalle_kardex.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="433" y="15" width="80" height="20" uuid="2c24d4bc-33ca-4964-9638-c2952e4fd0b9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="513" y="15" width="40" height="20" uuid="bdb364aa-403a-409d-b763-fe4b8e99c26e"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
