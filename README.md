@@ -14,3 +14,5 @@ Editor: mysql-query-browser-for-windows
 
 #Nota: 
 Todos los archivos necesarios para su funcionamiento del proyecto se encuentra en la carpeta files.
+
+#Contacto: aomc@outlook.es / https://web.facebook.com/aldomar.mc/
