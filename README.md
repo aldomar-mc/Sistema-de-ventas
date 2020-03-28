@@ -13,4 +13,4 @@ Motor de db: mysql-essential-5.5.1-m2-winx64
 Editor: mysql-query-browser-for-windows
 
 #Nota: 
-Todos los archivos necesarios para su funcionamiento del proyecto se encuentra en la carpeta <<files>>
+Todos los archivos necesarios para su funcionamiento del proyecto se encuentra en la carpeta files.
